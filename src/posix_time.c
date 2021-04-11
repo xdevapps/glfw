@@ -26,8 +26,11 @@
 //========================================================================
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
+<<<<<<< HEAD
 
 #define _POSIX_C_SOURCE 199309L
+=======
+>>>>>>> 3.3-stable
 
 #include "internal.h"
 

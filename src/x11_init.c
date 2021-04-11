@@ -407,6 +407,7 @@ static void createKeyTables(void)
     }
     else
         XDisplayKeycodes(_glfw.x11.display, &scancodeMin, &scancodeMax);
+<<<<<<< HEAD
 
     int width;
     KeySym* keysyms = XGetKeyboardMapping(_glfw.x11.display,
@@ -414,6 +415,15 @@ static void createKeyTables(void)
                                           scancodeMax - scancodeMin + 1,
                                           &width);
 
+=======
+
+    int width;
+    KeySym* keysyms = XGetKeyboardMapping(_glfw.x11.display,
+                                          scancodeMin,
+                                          scancodeMax - scancodeMin + 1,
+                                          &width);
+
+>>>>>>> 3.3-stable
     for (scancode = scancodeMin;  scancode <= scancodeMax;  scancode++)
     {
         // Translate the un-translated key codes using traditional X11 KeySym
@@ -491,13 +501,17 @@ static void inputMethodInstantiateCallback(Display* display,
 
 // Check whether the specified atom is supported
 //
-static Atom getSupportedAtom(Atom* supportedAtoms,
-                             unsigned long atomCount,
-                             const char* atomName)
+static Atom getAtomIfSupported(Atom* supportedAtoms,
+                               unsigned long atomCount,
+                               const char* atomName)
 {
     const Atom atom = XInternAtom(_glfw.x11.display, atomName, False);
 
+<<<<<<< HEAD
     for (unsigned int i = 0;  i < atomCount;  i++)
+=======
+    for (unsigned long i = 0;  i < atomCount;  i++)
+>>>>>>> 3.3-stable
     {
         if (supportedAtoms[i] == atom)
             return atom;
@@ -565,33 +579,33 @@ static void detectEWMH(void)
     // See which of the atoms we support that are supported by the WM
 
     _glfw.x11.NET_WM_STATE =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE");
     _glfw.x11.NET_WM_STATE_ABOVE =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE_ABOVE");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE_ABOVE");
     _glfw.x11.NET_WM_STATE_FULLSCREEN =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE_FULLSCREEN");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE_FULLSCREEN");
     _glfw.x11.NET_WM_STATE_MAXIMIZED_VERT =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE_MAXIMIZED_VERT");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE_MAXIMIZED_VERT");
     _glfw.x11.NET_WM_STATE_MAXIMIZED_HORZ =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE_MAXIMIZED_HORZ");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE_MAXIMIZED_HORZ");
     _glfw.x11.NET_WM_STATE_DEMANDS_ATTENTION =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_STATE_DEMANDS_ATTENTION");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_STATE_DEMANDS_ATTENTION");
     _glfw.x11.NET_WM_FULLSCREEN_MONITORS =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_FULLSCREEN_MONITORS");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_FULLSCREEN_MONITORS");
     _glfw.x11.NET_WM_WINDOW_TYPE =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_WINDOW_TYPE");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_WINDOW_TYPE");
     _glfw.x11.NET_WM_WINDOW_TYPE_NORMAL =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WM_WINDOW_TYPE_NORMAL");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WM_WINDOW_TYPE_NORMAL");
     _glfw.x11.NET_WORKAREA =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_WORKAREA");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_WORKAREA");
     _glfw.x11.NET_CURRENT_DESKTOP =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_CURRENT_DESKTOP");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_CURRENT_DESKTOP");
     _glfw.x11.NET_ACTIVE_WINDOW =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_ACTIVE_WINDOW");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_ACTIVE_WINDOW");
     _glfw.x11.NET_FRAME_EXTENTS =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_FRAME_EXTENTS");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_FRAME_EXTENTS");
     _glfw.x11.NET_REQUEST_FRAME_EXTENTS =
-        getSupportedAtom(supportedAtoms, atomCount, "_NET_REQUEST_FRAME_EXTENTS");
+        getAtomIfSupported(supportedAtoms, atomCount, "_NET_REQUEST_FRAME_EXTENTS");
 
     if (supportedAtoms)
         XFree(supportedAtoms);
@@ -805,6 +819,7 @@ static GLFWbool initExtensions(void)
                 _glfw.x11.xkb.detectable = GLFW_TRUE;
         }
 
+<<<<<<< HEAD
         _glfw.x11.xkb.group = 0;
         XkbStateRec state;
         if (XkbGetState(_glfw.x11.display, XkbUseCoreKbd, &state) == Success)
@@ -812,6 +827,14 @@ static GLFWbool initExtensions(void)
             XkbSelectEventDetails(_glfw.x11.display, XkbUseCoreKbd, XkbStateNotify, XkbAllStateComponentsMask, XkbGroupStateMask);
             _glfw.x11.xkb.group = (unsigned int)state.group;
         }
+=======
+        XkbStateRec state;
+        if (XkbGetState(_glfw.x11.display, XkbUseCoreKbd, &state) == Success)
+            _glfw.x11.xkb.group = (unsigned int)state.group;
+
+        XkbSelectEventDetails(_glfw.x11.display, XkbUseCoreKbd, XkbStateNotify,
+                              XkbGroupStateMask, XkbGroupStateMask);
+>>>>>>> 3.3-stable
     }
 
 #if defined(__CYGWIN__)
@@ -1085,6 +1108,7 @@ int _glfwPlatformInit(void)
     //       in the hope that it is set to something more sane than "C"
     if (strcmp(setlocale(LC_CTYPE, NULL), "C") == 0)
         setlocale(LC_CTYPE, "");
+<<<<<<< HEAD
 
 #if defined(__CYGWIN__)
     _glfw.x11.xlib.handle = _glfw_dlopen("libX11-6.so");
@@ -1297,6 +1321,8 @@ int _glfwPlatformInit(void)
         _glfw_dlsym(_glfw.x11.xlib.handle, "Xutf8LookupString");
     _glfw.x11.xlib.utf8SetWMProperties = (PFN_Xutf8SetWMProperties)
         _glfw_dlsym(_glfw.x11.xlib.handle, "Xutf8SetWMProperties");
+=======
+>>>>>>> 3.3-stable
 
     XInitThreads();
     XrmInitialize();

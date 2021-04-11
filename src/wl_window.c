@@ -142,8 +142,8 @@ static struct wl_buffer* createShmBuffer(const GLFWimage* image)
     if (fd < 0)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Wayland: Creating a buffer file for %d B failed: %m",
-                        length);
+                        "Wayland: Creating a buffer file for %d B failed: %s",
+                        length, strerror(errno));
         return NULL;
     }
 
@@ -151,7 +151,7 @@ static struct wl_buffer* createShmBuffer(const GLFWimage* image)
     if (data == MAP_FAILED)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "Wayland: mmap failed: %m");
+                        "Wayland: mmap failed: %s", strerror(errno));
         close(fd);
         return NULL;
     }
@@ -246,10 +246,10 @@ static void createDecorations(_GLFWwindow* window)
 
 static void destroyDecoration(_GLFWdecorationWayland* decoration)
 {
-    if (decoration->surface)
-        wl_surface_destroy(decoration->surface);
     if (decoration->subsurface)
         wl_subsurface_destroy(decoration->subsurface);
+    if (decoration->surface)
+        wl_surface_destroy(decoration->surface);
     if (decoration->viewport)
         wp_viewport_destroy(decoration->viewport);
     decoration->surface = NULL;
@@ -749,10 +749,17 @@ static void handleEvents(int timeout)
             if (read_ret != 8)
                 return;
 
-            for (i = 0; i < repeats; ++i)
-                _glfwInputKey(_glfw.wl.keyboardFocus, _glfw.wl.keyboardLastKey,
-                              _glfw.wl.keyboardLastScancode, GLFW_REPEAT,
-                              _glfw.wl.xkb.modifiers);
+            if (_glfw.wl.keyboardFocus)
+            {
+                for (i = 0; i < repeats; ++i)
+                {
+                    _glfwInputKey(_glfw.wl.keyboardFocus,
+                                  _glfw.wl.keyboardLastKey,
+                                  _glfw.wl.keyboardLastScancode,
+                                  GLFW_REPEAT,
+                                  _glfw.wl.xkb.modifiers);
+                }
+            }
         }
 
         if (fds[2].revents & POLLIN)
@@ -770,6 +777,31 @@ static void handleEvents(int timeout)
     }
 }
 
+<<<<<<< HEAD
+=======
+// Translates a GLFW standard cursor to a theme cursor name
+//
+static char *translateCursorShape(int shape)
+{
+    switch (shape)
+    {
+        case GLFW_ARROW_CURSOR:
+            return "left_ptr";
+        case GLFW_IBEAM_CURSOR:
+            return "xterm";
+        case GLFW_CROSSHAIR_CURSOR:
+            return "crosshair";
+        case GLFW_HAND_CURSOR:
+            return "hand2";
+        case GLFW_HRESIZE_CURSOR:
+            return "sb_h_double_arrow";
+        case GLFW_VRESIZE_CURSOR:
+            return "sb_v_double_arrow";
+    }
+    return NULL;
+}
+
+>>>>>>> 3.3-stable
 //////////////////////////////////////////////////////////////////////////
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
@@ -946,8 +978,10 @@ void _glfwPlatformGetFramebufferSize(_GLFWwindow* window,
                                      int* width, int* height)
 {
     _glfwPlatformGetWindowSize(window, width, height);
-    *width *= window->wl.scale;
-    *height *= window->wl.scale;
+    if (width)
+        *width *= window->wl.scale;
+    if (height)
+        *height *= window->wl.scale;
 }
 
 void _glfwPlatformGetWindowFrameSize(_GLFWwindow* window,

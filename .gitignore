@@ -110,3 +110,8 @@ bin-int
 CMake/
 CMakeLists.txt
 docs/
+
+
+examples/
+
+.travis.yml

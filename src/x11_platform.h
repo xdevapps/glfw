@@ -407,8 +407,9 @@ typedef struct _GLFWwindowX11
     // The last position the cursor was warped to by GLFW
     int             warpCursorPosX, warpCursorPosY;
 
-    // The time of the last KeyPress event
-    Time            lastKeyTime;
+    // The time of the last KeyPress event per keycode, for discarding
+    // duplicate key events generated for some keys by ibus
+    Time            keyPressTimes[256];
 
 } _GLFWwindowX11;
 
@@ -638,6 +639,7 @@ typedef struct _GLFWlibraryX11
         int          major;
         int          minor;
         unsigned int group;
+<<<<<<< HEAD
         PFN_XkbFreeKeyboard FreeKeyboard;
         PFN_XkbFreeNames FreeNames;
         PFN_XkbGetMap GetMap;
@@ -647,6 +649,8 @@ typedef struct _GLFWlibraryX11
         PFN_XkbQueryExtension QueryExtension;
         PFN_XkbSelectEventDetails SelectEventDetails;
         PFN_XkbSetDetectableAutoRepeat SetDetectableAutoRepeat;
+=======
+>>>>>>> 3.3-stable
     } xkb;
 
     struct {

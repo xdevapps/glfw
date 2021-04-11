@@ -25,8 +25,11 @@
 //========================================================================
 // It is fine to use C99 in this file because it will not be built with VS
 //========================================================================
+<<<<<<< HEAD
 
 #define _POSIX_C_SOURCE 199309L
+=======
+>>>>>>> 3.3-stable
 
 #include "internal.h"
 
@@ -341,9 +344,9 @@ static void pointerHandleAxis(void* data,
            axis == WL_POINTER_AXIS_VERTICAL_SCROLL);
 
     if (axis == WL_POINTER_AXIS_HORIZONTAL_SCROLL)
-        x = wl_fixed_to_double(value) * scrollFactor;
+        x = -wl_fixed_to_double(value) * scrollFactor;
     else if (axis == WL_POINTER_AXIS_VERTICAL_SCROLL)
-        y = wl_fixed_to_double(value) * scrollFactor;
+        y = -wl_fixed_to_double(value) * scrollFactor;
 
     _glfwInputScroll(window, x, y);
 }
