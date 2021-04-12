@@ -224,11 +224,7 @@ static void endFadeReservation(CGDisplayFadeReservationToken token)
 
 // Returns the display refresh rate queried from the I/O registry
 //
-<<<<<<< HEAD
-static GLFWbool refreshMonitorScreen(_GLFWmonitor* monitor)
-=======
 static double getFallbackRefreshRate(CGDirectDisplayID displayID)
->>>>>>> 3.3-stable
 {
     double refreshRate = 60.0;
 
@@ -387,15 +383,7 @@ void _glfwPollMonitorsNS(void)
     {
         if (CGDisplayIsAsleep(displays[i]))
             continue;
-
-<<<<<<< HEAD
-        // HACK: Compare unit numbers instead of display IDs to work around
-        //       display replacement on machines with automatic graphics
-        //       switching
-        const uint32_t unitNumber = CGDisplayUnitNumber(displays[i]);
-        for (uint32_t j = 0;  j < disconnectedCount;  j++)
-        {
-=======
+            
         const uint32_t unitNumber = CGDisplayUnitNumber(displays[i]);
         NSScreen* screen = nil;
 
@@ -416,7 +404,6 @@ void _glfwPollMonitorsNS(void)
         uint32_t j;
         for (j = 0;  j < disconnectedCount;  j++)
         {
->>>>>>> 3.3-stable
             if (disconnected[j] && disconnected[j]->ns.unitNumber == unitNumber)
             {
                 disconnected[j]->ns.screen = screen;

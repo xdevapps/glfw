@@ -111,6 +111,7 @@ CMake/
 CMakeLists.txt
 docs/
 
+tests/
 
 examples/
 

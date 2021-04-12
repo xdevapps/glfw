@@ -407,23 +407,12 @@ static void createKeyTables(void)
     }
     else
         XDisplayKeycodes(_glfw.x11.display, &scancodeMin, &scancodeMax);
-<<<<<<< HEAD
-
     int width;
     KeySym* keysyms = XGetKeyboardMapping(_glfw.x11.display,
                                           scancodeMin,
                                           scancodeMax - scancodeMin + 1,
                                           &width);
 
-=======
-
-    int width;
-    KeySym* keysyms = XGetKeyboardMapping(_glfw.x11.display,
-                                          scancodeMin,
-                                          scancodeMax - scancodeMin + 1,
-                                          &width);
-
->>>>>>> 3.3-stable
     for (scancode = scancodeMin;  scancode <= scancodeMax;  scancode++)
     {
         // Translate the un-translated key codes using traditional X11 KeySym
@@ -507,11 +496,7 @@ static Atom getAtomIfSupported(Atom* supportedAtoms,
 {
     const Atom atom = XInternAtom(_glfw.x11.display, atomName, False);
 
-<<<<<<< HEAD
-    for (unsigned int i = 0;  i < atomCount;  i++)
-=======
     for (unsigned long i = 0;  i < atomCount;  i++)
->>>>>>> 3.3-stable
     {
         if (supportedAtoms[i] == atom)
             return atom;
@@ -819,22 +804,12 @@ static GLFWbool initExtensions(void)
                 _glfw.x11.xkb.detectable = GLFW_TRUE;
         }
 
-<<<<<<< HEAD
-        _glfw.x11.xkb.group = 0;
-        XkbStateRec state;
-        if (XkbGetState(_glfw.x11.display, XkbUseCoreKbd, &state) == Success)
-        {
-            XkbSelectEventDetails(_glfw.x11.display, XkbUseCoreKbd, XkbStateNotify, XkbAllStateComponentsMask, XkbGroupStateMask);
-            _glfw.x11.xkb.group = (unsigned int)state.group;
-        }
-=======
         XkbStateRec state;
         if (XkbGetState(_glfw.x11.display, XkbUseCoreKbd, &state) == Success)
             _glfw.x11.xkb.group = (unsigned int)state.group;
 
         XkbSelectEventDetails(_glfw.x11.display, XkbUseCoreKbd, XkbStateNotify,
                               XkbGroupStateMask, XkbGroupStateMask);
->>>>>>> 3.3-stable
     }
 
 #if defined(__CYGWIN__)
@@ -1108,7 +1083,6 @@ int _glfwPlatformInit(void)
     //       in the hope that it is set to something more sane than "C"
     if (strcmp(setlocale(LC_CTYPE, NULL), "C") == 0)
         setlocale(LC_CTYPE, "");
-<<<<<<< HEAD
 
 #if defined(__CYGWIN__)
     _glfw.x11.xlib.handle = _glfw_dlopen("libX11-6.so");
@@ -1321,8 +1295,6 @@ int _glfwPlatformInit(void)
         _glfw_dlsym(_glfw.x11.xlib.handle, "Xutf8LookupString");
     _glfw.x11.xlib.utf8SetWMProperties = (PFN_Xutf8SetWMProperties)
         _glfw_dlsym(_glfw.x11.xlib.handle, "Xutf8SetWMProperties");
-=======
->>>>>>> 3.3-stable
 
     XInitThreads();
     XrmInitialize();

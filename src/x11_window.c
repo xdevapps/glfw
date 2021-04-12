@@ -778,10 +778,8 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
 
     if (_glfw.x11.im)
         _glfwCreateInputContextX11(window);
-
-<<<<<<< HEAD
+	
     _glfwPlatformSetWindowTitle(window, wndconfig->title);
-=======
     if (window->x11.ic)
     {
         unsigned long filter = 0;
@@ -789,7 +787,6 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
             XSelectInput(_glfw.x11.display, window->x11.handle, wa.event_mask | filter);
     }
 
->>>>>>> 3.3-stable
     _glfwPlatformGetWindowPos(window, &window->x11.xpos, &window->x11.ypos);
     _glfwPlatformGetWindowSize(window, &window->x11.width, &window->x11.height);
 
@@ -1195,11 +1192,8 @@ static void processEvent(XEvent *event)
             {
                 _glfw.x11.xkb.group = ((XkbEvent*) event)->state.group;
             }
-<<<<<<< HEAD
-=======
 
             return;
->>>>>>> 3.3-stable
         }
     }
 

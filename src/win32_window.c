@@ -395,32 +395,7 @@ static void updateFramebufferTransparency(const _GLFWwindow* window)
         bb.hRgnBlur = region;
         bb.fEnable = TRUE;
 
-<<<<<<< HEAD
-        if (SUCCEEDED(DwmEnableBlurBehindWindow(window->win32.handle, &bb)))
-        {
-            // Decorated windows don't repaint the transparent background
-            // leaving a trail behind animations
-            // HACK: Making the window layered with a transparency color key
-            //       seems to fix this.  Normally, when specifying
-            //       a transparency color key to be used when composing the
-            //       layered window, all pixels painted by the window in this
-            //       color will be transparent.  That doesn't seem to be the
-            //       case anymore, at least when used with blur behind window
-            //       plus negative region.
-            LONG exStyle = GetWindowLongW(window->win32.handle, GWL_EXSTYLE);
-            exStyle |= WS_EX_LAYERED;
-            SetWindowLongW(window->win32.handle, GWL_EXSTYLE, exStyle);
-
-            // Using a color key not equal to black to fix the trailing
-            // issue.  When set to black, something is making the hit test
-            // not resize with the window frame.
-            SetLayeredWindowAttributes(window->win32.handle,
-                                       RGB(255, 0, 255), 255, LWA_COLORKEY);
-        }
-
-=======
         DwmEnableBlurBehindWindow(window->win32.handle, &bb);
->>>>>>> 3.3-stable
         DeleteObject(region);
     }
     else
@@ -707,15 +682,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg,
                 return TRUE;
             }
 
-<<<<<<< HEAD
-            _glfwInputChar(window, (unsigned int) wParam, getKeyMods(), plain);
-
-            if (uMsg == WM_SYSCHAR && window->win32.keymenu)
-                break;
-
-=======
             _glfwInputChar(window, (unsigned int) wParam, getKeyMods(), GLFW_TRUE);
->>>>>>> 3.3-stable
             return 0;
         }
 

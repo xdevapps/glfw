@@ -777,8 +777,6 @@ static void handleEvents(int timeout)
     }
 }
 
-<<<<<<< HEAD
-=======
 // Translates a GLFW standard cursor to a theme cursor name
 //
 static char *translateCursorShape(int shape)
@@ -801,7 +799,6 @@ static char *translateCursorShape(int shape)
     return NULL;
 }
 
->>>>>>> 3.3-stable
 //////////////////////////////////////////////////////////////////////////
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////

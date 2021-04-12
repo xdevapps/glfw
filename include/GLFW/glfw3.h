@@ -987,11 +987,7 @@ extern "C" {
 #define GLFW_OPENGL_FORWARD_COMPAT  0x00022006
 /*! @brief Debug mode context hint and attribute.
  *
-<<<<<<< HEAD
- *  OpenGL debug context [hint](@ref GLFW_OPENGL_DEBUG_CONTEXT_hint) and
-=======
  *  Debug mode context [hint](@ref GLFW_OPENGL_DEBUG_CONTEXT_hint) and
->>>>>>> 3.3-stable
  *  [attribute](@ref GLFW_OPENGL_DEBUG_CONTEXT_attrib).
  */
 #define GLFW_OPENGL_DEBUG_CONTEXT   0x00022007
@@ -1860,17 +1856,6 @@ typedef struct GLFWgamepadstate
  *  bundle, if present.  This can be disabled with the @ref
  *  GLFW_COCOA_CHDIR_RESOURCES init hint.
  *
-<<<<<<< HEAD
- *  @remark @macos This function will create the main menu and dock icon for the
- *  application.  If GLFW finds a `MainMenu.nib` it is loaded and assumed to
- *  contain a menu bar.  Otherwise a minimal menu bar is created manually with
- *  common commands like Hide, Quit and About.  The About entry opens a minimal
- *  about dialog with information from the application's bundle.  The menu bar
- *  and dock icon can be disabled entirely with the @ref GLFW_COCOA_MENUBAR init
- *  hint.
- *
-=======
->>>>>>> 3.3-stable
  *  @remark @x11 This function will set the `LC_CTYPE` category of the
  *  application locale according to the current environment if that category is
  *  still "C".  This is because the "C" locale breaks Unicode text input.
@@ -3882,11 +3867,8 @@ GLFWAPI GLFWwindowfocusfun glfwSetWindowFocusCallback(GLFWwindow* window, GLFWwi
  *  @endcode
  *  For more information about the callback parameters, see the
  *  [function pointer type](@ref GLFWwindowiconifyfun).
-<<<<<<< HEAD
-=======
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
->>>>>>> 3.3-stable
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
  *

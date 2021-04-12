@@ -322,8 +322,6 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     _glfwInputWindowFocus(window, GLFW_FALSE);
 }
 
-<<<<<<< HEAD
-=======
 - (void)windowDidChangeOcclusionState:(NSNotification* )notification
 {
     if ([window->ns.object occlusionState] & NSWindowOcclusionStateVisible)
@@ -332,7 +330,6 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         window->ns.occluded = GLFW_TRUE;
 }
 
->>>>>>> 3.3-stable
 @end
 
 
@@ -734,13 +731,8 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     else
         characters = (NSString*) string;
 
-<<<<<<< HEAD
-    const NSUInteger length = [characters length];
-    for (NSUInteger i = 0;  i < length;  i++)
-=======
     NSRange range = NSMakeRange(0, [characters length]);
     while (range.length)
->>>>>>> 3.3-stable
     {
         uint32_t codepoint = 0;
 
@@ -909,13 +901,9 @@ int _glfwPlatformCreateWindow(_GLFWwindow* window,
                               const _GLFWfbconfig* fbconfig)
 {
     @autoreleasepool {
-
-<<<<<<< HEAD
-=======
     if (!_glfw.ns.finishedLaunching)
         [NSApp run];
-
->>>>>>> 3.3-stable
+        
     if (!createNativeWindow(window, wndconfig, fbconfig))
         return GLFW_FALSE;
 
